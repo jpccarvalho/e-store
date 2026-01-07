@@ -6,6 +6,7 @@ import { formatMoney } from "@/shared/lib/formatMoney";
 
 export function CartSidebar() {
   const items = useCartStore((s) => s.items);
+  const clearCart = useCartStore((s) => s.clearCart);
   const totalPrice = useCartStore((s) => formatMoney(s.getTotalPrice()));
 
   return (
@@ -25,8 +26,18 @@ export function CartSidebar() {
         ))}
       </div>
 
-      <div className="border-t border-zinc-200 p-4">
-        <Button className="w-full">Finalizar compra</Button>
+      <div className="border-t border-zinc-200 p-4 flex flex-col gap-2">
+        <Button
+          className="w-full"
+          variant="danger"
+          onClick={() => clearCart()}
+          disabled={items.length === 0}
+        >
+          Limpar carrinho
+        </Button>
+        <Button className="w-full" disabled={items.length === 0}>
+          Finalizar compra
+        </Button>
       </div>
     </div>
   );
