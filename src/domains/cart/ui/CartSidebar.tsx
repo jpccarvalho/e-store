@@ -7,13 +7,17 @@ import { formatMoney } from "@/shared/lib/formatMoney";
 export function CartSidebar() {
   const items = useCartStore((s) => s.items);
   const clearCart = useCartStore((s) => s.clearCart);
+  const totalItems = useCartStore((s) => s.getTotalItems());
   const totalPrice = useCartStore((s) => formatMoney(s.getTotalPrice()));
 
   return (
     <div className="flex h-full flex-col">
-      <div className="border-b border-zinc-200 p-4 flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Carrinho</h2>
-        <h2 className="text-lg font-semibold">{totalPrice}</h2>
+      <div className="border-b border-zinc-200 p-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Carrinho</h2>
+          <h2 className="text-lg font-semibold">{totalPrice}</h2>
+        </div>
+        {totalItems != 0 ? <span>Itens no carrinho: {totalItems}</span> : null}
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
